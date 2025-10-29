@@ -1,0 +1,81 @@
+package com.jzo2o.mall.system.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.jzo2o.mall.system.model.domain.Region;
+import com.jzo2o.mall.system.model.dto.RegionDTO;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 行政地区业务层
+ */
+@CacheConfig(cacheNames = "{regions}")
+public interface RegionService extends IService<Region> {
+
+
+    /**
+     * 更新地区
+     *
+     * @param region 地区
+     * @return
+     */
+    @CacheEvict(allEntries = true)
+    boolean updateById(Region region);
+    /**
+     * 更新地区
+     *
+     * @param region 地区
+     * @return
+     */
+    @CacheEvict(allEntries = true)
+    boolean save(Region region);
+
+
+    @CacheEvict(allEntries = true)
+    boolean removeByIds(List<String> idList);
+    /**
+     * 同步行政数据
+     *
+     * @param url
+     */
+    @CacheEvict
+    void synchronizationData(String url);
+
+    /**
+     * 获取地区列表
+     *
+     * @param id 地区ID
+     * @return 地区列表
+     */
+    @Cacheable(key = "#id")
+    List<Region> getItem(String id);
+
+    /**
+     * 根据最后一级名称获取改所有上级地区id
+     *
+     * @param lastName 最后一级名称
+     * @return 全部地区id
+     */
+    String getItemByLastName(String lastName);
+
+    /**
+     * 获取地址
+     *
+     * @param cityCode 城市编码
+     * @param townName 镇名称
+     * @return
+     */
+    Map<String, Object> getRegion(String cityCode, String townName);
+
+    /**
+     * 获取所有的城市
+     *
+     * @return
+     */
+    @Cacheable(key = "'ALL_CITY'")
+    List<RegionDTO> getAllCity();
+}

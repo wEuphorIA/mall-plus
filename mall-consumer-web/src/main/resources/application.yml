@@ -1,0 +1,103 @@
+#################     服务器配置     #################
+server:
+  port: 8084
+  undertow:
+    accesslog:
+      enabled: true
+      pattern: "%t %a &quot;%r&quot; %s (%D ms)"
+      dir: /data/logs/undertow/${spring.application.name}/access-logs/
+  servlet:
+    context-path: /buyer
+
+#################     spring公共配置     #################
+spring:
+  mvc:
+    path-match:
+      matching-strategy: ant_path_matcher
+    format:
+      date: yyyy-MM-dd HH:mm:ss
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  profiles:
+    active: dev
+  application:
+    name: mall
+  main:
+    # 支持循环依赖注入
+    allow-circular-references: true
+    # bean名相同覆盖
+    allow-bean-definition-overriding: true
+
+
+#################     项目独有配置     #################
+mysql:
+  db-name: mall_plus
+mybatis:
+  mapper-locations: mapper/*.xml
+  type-aliases-package: com.jzo2o.mall.*.model.domain
+swagger:
+  enable: true
+  package-path: com.jzo2o.mall
+  title: 商城项目消费端接口文档
+  description: 商城项目店铺端接口文档
+  contact-name: 传智教育·研究院
+  contact-url: http://www.itcast.cn/
+  contact-email: yjy@itcast.cn
+  version: v1.0
+
+mall:
+  # jwt 细节设定
+  jwt-setting:
+    # token过期时间（分钟）
+    tokenExpireTime: 60
+  # 白名单地址
+  # 忽略TOKEN 鉴权 的url
+  ignored:
+    urls:
+      - /editor-app/**
+      - /actuator**
+      - /actuator/**
+      - /MP_verify_qSyvBPhDsPdxvOhC.txt
+      - /weixin/**
+      - /source/**
+      - /payment/cashier/**
+      - /payment/cashierRefund/**
+      - /other/pageData/**
+      - /other/article/**
+      - /goods/**
+      - /store/**
+      - /passport/connect/**
+      - /members/**
+      - /passport/member/**
+      - /passport/member/refresh/**
+      - /promotion/pintuan/**
+      - /promotion/seckill/**
+      - /promotion/pointsGoods/**
+      - /promotion/coupon
+      - /member/evaluation/**/goodsEvaluation
+      - /member/evaluation/**/evaluationNumber
+      - /other/appVersion/**
+      - /broadcast/studio/**
+      - /druid/**
+      - /swagger-ui.html
+      - /doc.html
+      - /swagger-resources/**
+      - /swagger/**
+      - /webjars/**
+      - /v2/api-docs
+      - /configuration/ui
+      - /boot-admin
+      - /**/*.js
+      - /**/*.css
+      - /**/*.png
+      - /**/*.ico
+
+
+#################     日志配置     #################
+logging:
+  level:
+    com.jzo2o.mall: debug
+    org.apache.http: info #es请求日志
+#feign:
+#  enable: true

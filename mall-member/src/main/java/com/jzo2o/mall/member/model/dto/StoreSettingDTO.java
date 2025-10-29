@@ -1,0 +1,36 @@
+package com.jzo2o.mall.member.model.dto;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+/**
+ * 店铺设置
+ */
+@Data
+public class StoreSettingDTO {
+
+    @ApiModelProperty(value = "店铺logo")
+    private String storeLogo;
+
+    @ApiModelProperty(value = "店铺简介")
+    private String storeDesc;
+
+    @ApiModelProperty(value = "地址id，'，'分割 ")
+    private String storeAddressIdPath;
+
+    @ApiModelProperty(value = "地址名称， '，'分割")
+    private String storeAddressPath;
+
+    @ApiModelProperty(value = "详细地址")
+    private String storeAddressDetail;
+
+    @ApiModelProperty(value = "经纬度")
+    private String storeCenter;
+
+    @ApiModelProperty(value = "默认页面是否开启")
+    private Boolean pageShow;
+
+    @ApiModelProperty(value = "是否开启自提")
+    private Boolean selfPickFlag;
+
+}

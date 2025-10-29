@@ -1,0 +1,27 @@
+package com.jzo2o.mall.product.model.dto;
+
+import com.jzo2o.mall.product.model.domain.Parameters;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * 参数组vo
+ */
+@ApiModel
+@Data
+public class ParameterGroupDTO implements Serializable {
+
+    private static final long serialVersionUID = 724427321881170297L;
+    @ApiModelProperty("参数组关联的参数集合")
+    private List<Parameters> params;
+    @ApiModelProperty(value = "参数组名称")
+    private String groupName;
+    @ApiModelProperty(value = "参数组id")
+    private String groupId;
+
+
+}

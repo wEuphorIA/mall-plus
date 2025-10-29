@@ -1,0 +1,69 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://172.17.2.58:13307/${mysql.db-name}?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&stringtype=unspecified
+    username: jzo2o
+    password: 9kdyOmpp
+    hikari:
+      # 数据库连接URL
+#      jdbc-url: jdbc:mysql://localhost:3306/${mysql.db-name}?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&stringtype=unspecified
+#      # 用户名
+#      username: root
+#      # 密码
+#      password: mysql
+      # 连接池名称
+      pool-name: MyHikariPool
+      # 数据库驱动类名，Spring Boot通常可以根据url自动识别，但如果需要也可以在这里指定
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      # 最小空闲连接数量
+      minimum-idle: 5
+      # 连接池最大连接数
+      maximum-pool-size: 10
+      # 连接超时时间（毫秒），超过这个时间仍未从连接池获取到连接，则抛出异常
+      connection-timeout: 30000
+      # 连接最大生存时间（毫秒），超过这个时间则关闭连接
+      idle-timeout: 600000
+      # 是否自动提交事务，默认为true
+      auto-commit: true
+      # 等待连接池分配连接的最大时长（毫秒）
+      max-lifetime: 1800000
+      # 连接测试查询语句
+      connection-test-query: SELECT 1
+  redis:
+    host: 172.17.0.170
+    port: 6379
+    password: itheima
+    lettuce:
+      pool:
+        # 连接池最大连接数（使用负值表示没有限制） 默认 8
+        max-active: 200
+        # 连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1
+        max-wait: 20
+        # 连接池中的最大空闲连接 默认 8
+        max-idle: 10
+        # 连接池中的最小空闲连接 默认 8
+        min-idle: 8
+mybatis-plus:
+  configuration:
+    default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
+  page:
+    max-limit: 1000
+  global-config:
+    field-strategy: 0
+    db-config:
+      logic-delete-field: isDeleted
+      id-type: assign_id
+
+jzo2o:
+  es:
+    host: 172.17.2.58
+    port: 9200
+rabbit-mq:
+  enable: true
+#################     日志配置     #################
+logging:
+  level:
+    com.jzo2o.mall: debug
+    org.apache.http: info #es请求日志
+#feign:
+#  enable: true

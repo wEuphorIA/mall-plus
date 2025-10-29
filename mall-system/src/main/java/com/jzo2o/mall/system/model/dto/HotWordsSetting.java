@@ -1,0 +1,25 @@
+package com.jzo2o.mall.system.model.dto;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 搜索热词
+ */
+@Data
+public class HotWordsSetting implements Serializable {
+
+    //热词1-5，默认分数1-5
+
+    @ApiModelProperty(value = "热词默认配置")
+    private List<HotWordsSettingItem> hotWordsSettingItems = new ArrayList<>();
+
+
+    @ApiModelProperty("每日保存数量")
+    private Integer saveNum;
+
+}

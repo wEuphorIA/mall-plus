@@ -1,0 +1,36 @@
+package com.jzo2o.mall.aftersale.model.enums;
+
+/**
+ * 交易投诉状态
+ **/
+public enum ComplaintStatusEnum {
+
+    /**
+     * 新投诉
+     */
+    NEW("新投诉"),
+    /**
+     * 已撤销
+     */
+    CANCEL("已撤销"),
+    /**
+     * 等待仲裁
+     */
+    WAIT_ARBITRATION("等待仲裁"),
+    /**
+     * 已完成
+     */
+    COMPLETE("已完成");
+
+    private final String description;
+
+    ComplaintStatusEnum(String description) {
+        this.description = description;
+    }
+
+    public String description() {
+        return this.description;
+    }
+
+
+}

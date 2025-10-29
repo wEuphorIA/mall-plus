@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>jzo2o-parent</artifactId>
+        <groupId>com.jzo2o</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <groupId>com.jzo2o</groupId>
+
+    <artifactId>mall</artifactId>
+    <packaging>pom</packaging>
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <mall.version>1.0-SNAPSHOT</mall.version>
+        <aliyun-version>4.6.0</aliyun-version>
+        <aliyun-sdk-oss-version>3.14.0</aliyun-sdk-oss-version>
+        <aliyun-sdk-dysms-version>2.0.9</aliyun-sdk-dysms-version>
+        <huaweicloud-obs.version>3.20.6.2</huaweicloud-obs.version>
+        <tencentcloud.version>3.1.693</tencentcloud.version>
+        <cos.version>5.6.97</cos.version>
+        <poi-version>5.1.0</poi-version>
+        <poi-ooxml-version>5.1.0</poi-ooxml-version>
+    </properties>
+    <modules>
+        <module>mall-common</module>
+        <module>mall-system</module>
+        <module>mall-product</module>
+        <module>mall-admin-web</module>
+        <module>mall-security</module>
+        <module>mall-member</module>
+        <module>mall-store-web</module>
+        <module>mall-common-web</module>
+        <module>mall-consumer-web</module>
+        <module>mall-order</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.jzo2o</groupId>
+                <artifactId>mall-common</artifactId>
+                <version>${mall.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jzo2o</groupId>
+                <artifactId>mall-security</artifactId>
+                <version>${mall.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jzo2o</groupId>
+                <artifactId>mall-system</artifactId>
+                <version>${mall.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jzo2o</groupId>
+                <artifactId>mall-product</artifactId>
+                <version>${mall.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jzo2o</groupId>
+                <artifactId>mall-admin</artifactId>
+                <version>${mall.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jzo2o</groupId>
+                <artifactId>mall-member</artifactId>
+                <version>${mall.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jzo2o</groupId>
+                <artifactId>mall-order</artifactId>
+                <version>${mall.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>
