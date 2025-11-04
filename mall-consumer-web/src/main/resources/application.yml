@@ -50,7 +50,7 @@ mall:
   # jwt 细节设定
   jwt-setting:
     # token过期时间（分钟）
-    tokenExpireTime: 60
+    tokenExpireTime: 60000000
   # 白名单地址
   # 忽略TOKEN 鉴权 的url
   ignored:

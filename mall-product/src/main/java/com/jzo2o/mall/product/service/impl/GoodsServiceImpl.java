@@ -1,5 +1,6 @@
 package com.jzo2o.mall.product.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -222,7 +223,22 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
 
     @Override
     public GoodsDTO getGoodsVO(String goodsId) {
-        return new GoodsDTO();
+        Goods goods = this.getById(goodsId);
+        GoodsDTO goodsDTO = BeanUtil.toBean(goods, GoodsDTO.class);
+        List<GoodsGallery> goodsGalleries = goodsGalleryService.goodsGalleryList(goodsId);
+        goodsDTO.setGoodsGalleryList(goodsGalleries.stream().map(GoodsGallery::getThumbnail).collect(Collectors.toList()));
+        List<GoodsParamsDTO> list = JSONUtil.toList(goods.getParams(), GoodsParamsDTO.class);
+        goodsDTO.setGoodsParamsDTOList(list);
+        List<GoodsSkuDTO> goodsListByGoodsId = goodsSkuService.getGoodsListByGoodsId(goodsId);
+        goodsDTO.setSkuList(goodsListByGoodsId);
+        for (GoodsSkuDTO goodsSkuDTO : goodsListByGoodsId) {
+            String[] split = goodsSkuDTO.getCategoryPath().split(",");
+            //把这个转化为集合
+            List<String> categoryList = Arrays.asList(split);
+            List<String> categoryNameByIds = categoryService.getCategoryNameByIds(categoryList);
+            goodsDTO.setCategoryName(categoryNameByIds);
+        }
+        return goodsDTO;
     }
 
     @Override

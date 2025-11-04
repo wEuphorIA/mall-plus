@@ -19,6 +19,7 @@ import com.jzo2o.mall.product.service.CategoryParameterGroupService;
 import com.jzo2o.mall.product.service.CategoryService;
 import com.jzo2o.mall.product.service.CategorySpecificationService;
 import com.jzo2o.redis.helper.Cache;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -39,6 +40,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @CacheConfig(cacheNames = "{CATEGORY}")
+@Slf4j
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
 
     private static final String DELETE_FLAG_COLUMN = "delete_flag";
@@ -163,7 +165,21 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
 
     @Override
     public List<CategoryDTO> listAllChildren(CategorySearchParamsDTO categorySearchParams) {
-        return new ArrayList<>();
+
+        // 1. 查询所有分类数据
+        List<Category> categories = this.list(categorySearchParams.queryWrapper());
+        // 2. 找到所有根节点（parentId = "0"）
+        List<Category> rootCategories = categories.stream()
+                .filter(item -> "0".equals(item.getParentId()))
+                .collect(Collectors.toList());
+        return rootCategories.stream()
+                .map(root -> {
+                    CategoryDTO rootDTO = new CategoryDTO(root);
+                    rootDTO.setChildren(findChildren(categories, rootDTO));
+                    return rootDTO;
+                })
+                .sorted(Comparator.comparing(CategoryDTO::getSortOrder))
+                .collect(Collectors.toList());
     }
 
     /**

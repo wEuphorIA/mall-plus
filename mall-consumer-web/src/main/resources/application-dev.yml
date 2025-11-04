@@ -46,7 +46,7 @@ spring:
   rabbitmq:
     host: 192.168.101.68
     username: hmall
-    password: 123
+    password: 123321
     port: 5672
     virtual-host: /hmall
     publisher-confirm-type: correlated #发送消息的异步回调，记录消息是否发送成功
